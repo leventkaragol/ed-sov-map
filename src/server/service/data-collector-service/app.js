@@ -3,7 +3,8 @@
 global.config = require("simpler-config").load(require("./config.json"));
 
 let pg = require("pg"),
-    request = require("request");
+    request = require("request"),
+    md5 = require("md5");
 
 let Persister = require("../../infrastructure/persister"),
     EddbAdapter = require("../../infrastructure/eddb-adapter"),
@@ -15,18 +16,18 @@ let Persister = require("../../infrastructure/persister"),
     PopulatedSystemService = require("../../domain/populated-system/populated-system-service");
 
 serviceBootstrapper.initialize(require("async-each-series"), require("underscore"), new Logger(pg, Persister));
-let started=false;
+
 setInterval(function () {
 
     let now = new Date().getHours().toString().padLeft(2, "0") + ":" + new Date().getMinutes().toString().padLeft(2, "0");
 
     // Work ones per day for each syncTimes in config
-    if (!started && global.config.syncTimes.indexOf(now) !== -1) {
-        started=true;
+    if (global.config.syncTimes.indexOf(now) !== -1) {
+
         let persister = new Persister(pg, global.config.connectionString),
             eddbAdapter = new EddbAdapter(request),
             minorFactionRepository = new MinorFactionRepository(persister, eddbAdapter),
-            minorFactionService = new MinorFactionService(minorFactionRepository),
+            minorFactionService = new MinorFactionService(minorFactionRepository, md5),
             populatedSystemRepository = new PopulatedSystemRepository(persister, eddbAdapter),
             populatedSystemService = new PopulatedSystemService(populatedSystemRepository);
 
@@ -37,11 +38,11 @@ setInterval(function () {
             })
             .then(function () {
 
-                return minorFactionService.importMinorFactionList();
-            })
-            .then(function () {
-
                 return populatedSystemService.importPopulatedSystemList();
+            })
+            .then(function (populatedSystemList) {
+
+                return minorFactionService.importMinorFactionList(populatedSystemList);
             })
             .then(function () {
 

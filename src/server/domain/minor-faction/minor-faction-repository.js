@@ -29,7 +29,11 @@ module.exports = class MinorFactionRepository {
             " allegiance_id, " +
             " allegiance, " +
             " home_system_id, " +
-            " is_player_faction)" +
+            " is_player_faction," +
+            " color," +
+            " controlling_system_count," +
+            " presence_system_count," +
+            " focus_coords)" +
             " VALUES(" +
             " $1, " +
             " $2, " +
@@ -38,7 +42,11 @@ module.exports = class MinorFactionRepository {
             " $5, " +
             " $6, " +
             " $7, " +
-            " $8)",
+            " $8, " +
+            " $9, " +
+            " $10, " +
+            " $11, " +
+            " $12)",
             [
                 minorFaction.id,
                 minorFaction.name,
@@ -47,7 +55,11 @@ module.exports = class MinorFactionRepository {
                 minorFaction.allegiance_id,
                 minorFaction.allegiance,
                 minorFaction.home_system_id,
-                minorFaction.is_player_faction
+                minorFaction.is_player_faction,
+                minorFaction.color,
+                minorFaction.controlling_system_count,
+                minorFaction.presence_system_count,
+                minorFaction.focus_coords
             ]);
     }
 };

@@ -43,7 +43,7 @@ module.exports = class PopulatedSystemService {
 
                             } else {
 
-                                resolve();
+                                resolve(populatedSystemList);
                             }
                         });
                 })
