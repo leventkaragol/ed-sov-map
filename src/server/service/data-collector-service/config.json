@@ -1,0 +1,6 @@
+{
+  "connectionString": "postgres://ed_sov_map_user:ed_sov_map_password@localhost/ed_sov_map",
+  "syncTimes": [
+    "09:33"
+  ]
+}

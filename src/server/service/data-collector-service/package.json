@@ -1,0 +1,12 @@
+{
+  "name": "data-collector-service",
+  "description": "ED Sov Map Data Collector Service",
+  "version": "0.1.0",
+  "dependencies": {
+    "underscore": "1.9.1",
+    "async-each-series": "1.1.0",
+    "pg": "7.10.0",
+    "request": "2.88.0",
+    "simpler-config": "0.0.5"
+  }
+}
