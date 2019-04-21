@@ -104,4 +104,31 @@ module.exports = class PopulatedSystemRepository {
                 JSON.stringify(populatedSystem.minor_faction_presences)
             ]);
     }
+
+    getList() {
+
+        let that = this;
+
+        return new Promise(function (resolve, reject) {
+
+            that._persister.query("SELECT " +
+                " populated_system.\"name\", " +
+                " populated_system.x, " +
+                " populated_system.y, " +
+                " populated_system.z, " +
+                " populated_system.controlling_minor_faction_id as controller_id, " +
+                " populated_system.controlling_minor_faction as controller " +
+                " FROM public.populated_system" +
+                " LEFT JOIN public.minor_faction ON populated_system.controlling_minor_faction_id = minor_faction.id" +
+                " WHERE minor_faction.is_player_faction = 't'")
+                .then(function (result) {
+
+                    resolve(result.rows);
+                })
+                .catch(function (error) {
+
+                    reject(error);
+                })
+        });
+    }
 };

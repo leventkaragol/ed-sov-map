@@ -63,12 +63,25 @@ module.exports = class MinorFactionService {
         });
     }
 
+    getMinorFactionList() {
+
+        return this._repository.getList();
+    }
+
     _generateColor(minorFaction) {
 
-        // Generates same color for same faction name
-        // DB content is being cleared and regenerated from scratch every day
-        // So same faction gets same color in this way
-        return "#" + this._md5(minorFaction.name).substr(0, 6);
+        if (minorFaction.is_player_faction) {
+
+            // Generates same color for same faction name
+            // DB content is being cleared and regenerated from scratch every day
+            // So same faction gets same color in this way
+            return "#" + this._md5(minorFaction.name).substr(0, 6);
+
+        } else {
+
+            // NPC minor factions always return white
+            return "#ffffff";
+        }
     };
 
     _calculateControllingSystemCount(populatedSystemList, minorFaction) {

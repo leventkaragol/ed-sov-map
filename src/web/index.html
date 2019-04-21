@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title>Elite Dangerous Sovereignty Map</title>
+    <meta name="description" content="Elite Dangerous Sovereignty Map">
+    <meta name="keywords" content="Elite Dangerous Sovereignty Map">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.0/pnotify.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/style.css" type="text/css" media="all"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-route.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.0/pnotify.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.min.js"></script>
+
+    <script type="text/javascript" src="libs/ed3dmap.min.js"></script>
+
+    <script type="text/javascript" src="scripts/app.js"></script>
+
+    <script type="text/javascript" src="scripts/controllers/index.js"></script>
+
+    <script type="text/javascript" src="scripts/api-adapter/server-api-adapter.js"></script>
+
+    <script type="text/javascript" src="scripts/services/blocker-service.js"></script>
+    <script type="text/javascript" src="scripts/services/notifier-service.js"></script>
+</head>
+
+<body ng-controller="indexController" ng-init="init()">
+
+<table class="full-fill">
+    <tr>
+        <td style="width: 1300px;">
+            <div id="mapContainer"></div>
+        </td>
+        <td style="border-left: 1px solid #f07b05;">
+
+            <table class="full-width">
+                <tr>
+                    <td colspan="3" class="ftb-header">Squadron</td>
+                    <td class="ftb-header">Controlling</td>
+                    <td class="ftb-header">Presence</td>
+                    <td class="ftb-header">Government</td>
+                    <td class="ftb-header">Allegiance</td>
+                </tr>
+                <tr ng-repeat="minorFaction in minorFactionList" ng-class="{'ftb-alternate-row' : $index % 2 === 0}">
+                    <td class="ftb-cell">{{::$index + 1}}</td>
+                    <td class="ftb-cell"><i class="fa fa-square" style="color:{{::minorFaction.color}};"></i></td>
+                    <td class="ftb-cell">{{::minorFaction.name}}</td>
+                    <td class="ftb-cell-center">{{::minorFaction.controlling_system_count}}</td>
+                    <td class="ftb-cell-center">{{::minorFaction.presence_system_count}}</td>
+                    <td class="ftb-cell">{{::minorFaction.government}}</td>
+                    <td class="ftb-cell">{{::minorFaction.allegiance}}</td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

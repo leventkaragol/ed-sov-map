@@ -62,4 +62,34 @@ module.exports = class MinorFactionRepository {
                 minorFaction.focus_coords
             ]);
     }
+
+    getList() {
+
+        let that = this;
+
+        return new Promise(function (resolve, reject) {
+
+            that._persister.query("SELECT " +
+                " id, " +
+                " \"name\", " +
+                " government_id, " +
+                " government, " +
+                " allegiance_id, " +
+                " allegiance, " +
+                " color, " +
+                " controlling_system_count, " +
+                " presence_system_count, " +
+                " focus_coords " +
+                " FROM public.minor_faction" +
+                " WHERE is_player_faction = 't'")
+                .then(function (result) {
+
+                    resolve(result.rows);
+                })
+                .catch(function (error) {
+
+                    reject(error);
+                })
+        });
+    }
 };

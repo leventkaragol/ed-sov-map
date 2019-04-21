@@ -1,0 +1,5 @@
+{
+  "workerProcessCount": 2,
+  "port": "8595",
+  "connectionString": "postgres://ed_sov_map_user:ed_sov_map_password@localhost/ed_sov_map"
+}

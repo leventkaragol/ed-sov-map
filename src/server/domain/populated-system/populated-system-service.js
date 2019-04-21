@@ -53,4 +53,9 @@ module.exports = class PopulatedSystemService {
                 });
         });
     }
+
+    getPopulatedSystemList() {
+
+        return this._repository.getList();
+    }
 };
